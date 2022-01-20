@@ -13,6 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getContest } from "../store/actions/contestAction";
 import Footer from "components/footer";
 
+// Imports for Firebase Notifications
+import Fader from "../components/Notifications/Fader";
+
+import { onMessageListener } from "../firebase";
+import Notifications from "../components/Notifications/Notification";
+import ReactNotificationComponent from "../components/Notifications/ReactNotification";
+// Imports for firebase notifications ends
+
+
 //ALL CSS INJECTED FROM "main.css"
 interface State {
   accesscode: string;
@@ -76,7 +85,32 @@ export default function IndexPage() {
     }
   }, [])
 
+
+
+
+  // Configurations for receiving messages
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: "", body: "" });
+
+  console.log(show, notification);
+
+  useEffect(()=> {
+    onMessageListener()
+    .then((payload) => {
+      setShow(true);
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+      console.log(payload);
+    })
+    .catch((err) => console.log("failed: ", err));
+  })
+  // Configurations for receiving messages ends
   
+
+
+
 
   const [loadedState, setLoaded] = useState(false);
   const [contestsTotal, setContests] = useState([]);
@@ -95,8 +129,27 @@ export default function IndexPage() {
 
   return (
     <>
-      {isDesktopOrLaptop && (
+  {isDesktopOrLaptop && (
+    
         <Layout>
+
+          {/* Notification div */}
+          <div>
+            {show ? (
+              <ReactNotificationComponent
+                title={notification.title}
+                body={notification.body}
+              />
+            )
+            : (
+              <></>
+            )}
+            <Notifications />
+            <Fader text=""></Fader>
+          </div>
+          {/* Notification div ends */}
+
+          
           {localStorage.onlinejudge_info ? (
             <>
               {loadedState ? (
