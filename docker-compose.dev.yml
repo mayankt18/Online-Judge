@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  
+
   db:
     image: postgres:12
     env_file: 
@@ -9,9 +9,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  redis:
-    image: redis
-  
   backend:
     build: .
     deploy:
@@ -27,16 +24,14 @@ services:
       python manage.py loaddata /backend/language_model.json --settings=judge.dev_settings &&
       python manage.py runserver 0.0.0.0:8000 --settings=judge.dev_settings"
     volumes:
-      - app:/backend:rw
-      - static:/backend/static/
-      - media:/backend/media/
-    env_file: 
+      - ./:/backend:rw
+      - ./static:/backend/static/:rw
+      - ./media:/backend/media/:rw
+    env_file:
       - .env
-    ports:
-      - "8000:8000"
     depends_on:
       - db
-      - redis
+      - rabbitmq
 
   rabbitmq:
     image: rabbitmq:3.8-management
@@ -48,14 +43,14 @@ services:
 
   frontend:
     build: ./frontend
-    command: yarn run dev
+    command: yarn run start
     env_file:
       ./frontend/.env
-    ports:
-      - "3000:3000"
 
   nginx:
-    build: ./nginx
+    build: 
+      context: ./nginx
+      dockerfile: ./Dockerfile-dev
     volumes:
       - ./static:/backend/static/
       - ./media:/backend/media/
@@ -67,6 +62,3 @@ services:
 
 volumes:
   postgres_data:
-  app:
-  static:
-  media:

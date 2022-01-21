@@ -105,7 +105,7 @@ export default function IndexPage() {
       console.log(payload);
     })
     .catch((err) => console.log("failed: ", err));
-  })
+  }, [])
   // Configurations for receiving messages ends
   
 

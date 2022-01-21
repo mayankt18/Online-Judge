@@ -5,16 +5,9 @@ importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
 
 // Initialize the Firebase app in the service worker by passing the generated config
-const firebaseConfig = {
-    apiKey: "AIzaSyBDWv_4whZuA-xMoYQ5982TQKGXuItFKXk",
-    authDomain: "online-judge-frontend.firebaseapp.com",
-    projectId: "online-judge-frontend",
-    storageBucket: "online-judge-frontend.appspot.com",
-    messagingSenderId: "1099500055356",
-    appId: "1:1099500055356:web:3490c0f30ddd8a6787cc39"
-};
+const firebaseConfig = require("../firebaseConfig");
 
-
+console.log(firebaseConfig);
 // eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
