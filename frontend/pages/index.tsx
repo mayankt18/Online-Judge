@@ -92,7 +92,7 @@ export default function IndexPage() {
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({ title: "", body: "" });
 
-  console.log(show, notification);
+  // console.log(show, notification);
 
   useEffect(()=> {
     onMessageListener()
@@ -102,7 +102,7 @@ export default function IndexPage() {
         title: payload.notification.title,
         body: payload.notification.body,
       });
-      console.log(payload);
+      // console.log(payload);
     })
     .catch((err) => console.log("failed: ", err));
   }, [])

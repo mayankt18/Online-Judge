@@ -4,7 +4,7 @@ import { get_token } from "../../firebase";
 const Notifications = (props) => {
   const [isTokenFound, setTokenFound] = useState(false);
 
-  console.log("Token found", isTokenFound);
+  // console.log("Token found", isTokenFound);
 
   // To load once
   useEffect(() => {
@@ -13,7 +13,7 @@ const Notifications = (props) => {
     async function tokenFunc() {
       data = await get_token(setTokenFound);
       if (data) {
-        console.log("Token is", data);
+        // console.log("Token is", data);
       }
       return data;
     }
