@@ -16,7 +16,7 @@ function Footer() {
     return (
         <div>
             <div className="FooterFixed">
-              Sponsored by : 
+              {/* Sponsored by : 
               {
                 sponsors.map(sponsor => (
                   <>
@@ -24,12 +24,12 @@ function Footer() {
               <img alt="." src={sponsor.logo} className="FooterImg" />
               &nbsp;&nbsp;
               </>))
-              }
-            <br/>
-            <br/>
-                {/* &copy; Created and maintained by GNU/Linux Users' group, Nit
-                Durgapur */}
-                Aarohan by Team Aavishkar
+              } */}
+            {/* <br/> */}
+            {/* <br/> */}
+                &copy; Created and maintained by GNU/Linux Users' group, Nit
+                Durgapur
+                {/* Aarohan by Team Aavishkar */}
               </div>
         </div>
     )
